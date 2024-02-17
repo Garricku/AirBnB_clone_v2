@@ -11,13 +11,19 @@ class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
+    cities = relationship("City",
+                          cascade="all, delete, delete-orphan", backref="state"
+                          )
 
-    #for DBStorage
-    cities = relationship("City", cascade="all, delete, delete-orphan", backref="state")
-
-    #for FileStorage
     @property
     def cities(self):
-        """ returns the list of City instances with state_id equals to the current State.id """
-        city_instances = models.storage.all("City")
-        return [city for city in city_instances.values() if city.state_id == self.id]
+        """
+        Returns the list of City instances with state_id equals to the
+        current State.id
+        """
+        if models.storage.__class__.__name__ == 'DBStoage':
+            return [city for city in self.cities]
+        else:
+            city_instances = models.storage.all("City")
+            return [city for city in city_instances.values()
+                    if city.state_id == self.id]

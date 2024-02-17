@@ -60,3 +60,7 @@ class FileStorage:
             if key in self.all():
                 del self.all()[key]
                 self.save()
+
+    def close(self):
+        """Calls reload() method to deserialize the JSON file to objects"""
+        self.reload()

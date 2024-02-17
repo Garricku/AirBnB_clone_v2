@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ new class for sqlAlchemy """
+
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -11,8 +12,6 @@ from models.place import Place
 from models.review import Review
 from models.amenity import Amenity
 import os
-
-
 
 
 class DBStorage:
