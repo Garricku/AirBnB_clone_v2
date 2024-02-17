@@ -22,7 +22,8 @@ class State(BaseModel, Base):
         current State.id
         """
         if models.storage.__class__.__name__ == 'DBStoage':
-            return [city for city in self.cities]
+            city_inst = models.DBstorage.all('City')
+            return [city for city in city_inst.values()]
         else:
             city_instances = models.storage.all("City")
             return [city for city in city_instances.values()
